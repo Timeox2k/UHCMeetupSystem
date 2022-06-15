@@ -1,0 +1,5 @@
+name: UHCMeetupSystem
+version: '${project.version}'
+main: com.softwarelara.uhcmeetupsystem.UHCMeetupSystem
+api-version: 1.13
+authors: [ Timeox2k ]
