@@ -12,7 +12,6 @@ public class ArenaUtils {
 
     //ARENAID
     private final ArrayList<String> existingArenas = new ArrayList<>();
-
     //Player:ARENAID
     private final HashMap<UUID, String> playersInArena = new HashMap<>();
     private final UHCMeetupSystem uhcMeetupSystem = UHCMeetupSystem.getInstance();
