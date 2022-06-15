@@ -36,6 +36,11 @@ public final class UHCMeetupSystem extends JavaPlugin {
         config.addDefault("LOBBY_ARENA_SELECTOR_ITEM", "SNOWBALL");
         config.addDefault("LOBBY_ARENA_SELECTOR_DISPLAYNAME", "&aSelect Arena to join");
 
+        getLogger().info("Server got started, this means we will start 3 Arenas to start with. If we need more, we will create more dynamically.");
+        for (int i = 0; i < 3; i++) {
+            getArenaUtils().createArena();
+        }
+        getLogger().info("Arenas created!");
         saveConfig();
     }
 
@@ -57,5 +62,6 @@ public final class UHCMeetupSystem extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        getArenaUtils().deleteAllArenas();
     }
 }
