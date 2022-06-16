@@ -23,7 +23,7 @@ public class ArenaUtils {
 
     public void createArena() {
         String arenaID = "Meetup-" + (existingArenas.size());
-        if(!existingArenas.contains(arenaID)) {
+        if (!existingArenas.contains(arenaID)) {
             existingArenas.add(arenaID);
             WorldCreator wc = new WorldCreator(arenaID);
 
@@ -37,14 +37,14 @@ public class ArenaUtils {
     }
 
     public void deleteArena(String arenaID) {
-        if(existingArenas.contains(arenaID)) {
-            if(Bukkit.getWorld(arenaID) != null) {
-                 World world = Bukkit.getWorld(arenaID);
+        if (existingArenas.contains(arenaID)) {
+            if (Bukkit.getWorld(arenaID) != null) {
+                World world = Bukkit.getWorld(arenaID);
 
-                if(world != null) {
+                if (world != null) {
 
-                    for(Player all : Bukkit.getOnlinePlayers()) {
-                        if(all.getWorld().getName().equalsIgnoreCase(arenaID)) {
+                    for (Player all : Bukkit.getOnlinePlayers()) {
+                        if (all.getWorld().getName().equalsIgnoreCase(arenaID)) {
                             all.teleport(LocationUtils.getLobbySpawn());
                         }
                     }
@@ -62,17 +62,17 @@ public class ArenaUtils {
     public void deleteAllArenas() {
         logger.info("Found " + existingArenas.size() + " Arenas! Will delete them now..");
 
-        for(String arena : existingArenas) {
+        for (String arena : existingArenas) {
 
-            for(Player all : Bukkit.getOnlinePlayers()) {
-                if(all.getWorld().getName().equalsIgnoreCase(arena)) {
+            for (Player all : Bukkit.getOnlinePlayers()) {
+                if (all.getWorld().getName().equalsIgnoreCase(arena)) {
                     all.teleport(LocationUtils.getLobbySpawn());
                 }
             }
 
             World world = Bukkit.getWorld(arena);
 
-            if(world != null) {
+            if (world != null) {
                 Bukkit.unloadWorld(arena, false);
                 deleteWorld(world.getWorldFolder());
             }
@@ -94,13 +94,13 @@ public class ArenaUtils {
 
     public void openArenaInventory(Player player) {
         final String arenaChooserDisplayName = ConfigurationUtils.getStringOfConfigPath("LOBBY_ARENA_SELECTOR_DISPLAYNAME");
-        Inventory inventory = Bukkit.createInventory(player, 5*9, arenaChooserDisplayName);
+        Inventory inventory = Bukkit.createInventory(player, 5 * 9, arenaChooserDisplayName);
 
         int arenaCount = 0;
-        for(String arena : existingArenas) {
+        for (String arena : existingArenas) {
             World arenaWorld = Bukkit.getWorld(arena);
 
-            if(arenaWorld != null) {
+            if (arenaWorld != null) {
 
                 int playerCount = arenaWorld.getPlayers().size();
 
@@ -108,12 +108,12 @@ public class ArenaUtils {
                 ItemStack defaultArenaIcon = new ItemStack(Material.GREEN_DYE, 1);
                 ItemMeta defaultArenaIconItemMeta = defaultArenaIcon.getItemMeta();
                 defaultArenaIconItemMeta.setDisplayName("§aUHCMeetup-" + arenaCount);
-                if(playerCount >= maxPlayerCount) {
-                    defaultArenaIconItemMeta.setLore(Arrays.asList("§cPlayers§8: §c" + playerCount + "§8/§c" + maxPlayerCount,"§4§lGame is full!"));
+                if (playerCount >= maxPlayerCount) {
+                    defaultArenaIconItemMeta.setLore(Arrays.asList("§cPlayers§8: §c" + playerCount + "§8/§c" + maxPlayerCount, "§4§lGame is full!"));
                     defaultArenaIcon.setItemMeta(defaultArenaIconItemMeta);
                 } else {
                     defaultArenaIconItemMeta.setDisplayName("§aUHCMeetup-" + arenaCount);
-                    defaultArenaIconItemMeta.setLore(Arrays.asList("§aPlayers§8: §a" + playerCount + "§8/§a" + maxPlayerCount,"§a§lClick to join!"));
+                    defaultArenaIconItemMeta.setLore(Arrays.asList("§aPlayers§8: §a" + playerCount + "§8/§a" + maxPlayerCount, "§a§lClick to join!"));
                 }
                 defaultArenaIcon.setItemMeta(defaultArenaIconItemMeta);
                 inventory.addItem(defaultArenaIcon);
@@ -150,11 +150,11 @@ public class ArenaUtils {
     }
 
     public void terminatePlayer(Player player) {
-        if(!playersInArena.contains(player.getUniqueId())) return;
+        if (!playersInArena.contains(player.getUniqueId())) return;
 
         String arenaID = playersInArena.get(player.getUniqueId());
-        for(Player all : Bukkit.getOnlinePlayers()) {
-            if(all.getWorld().getName().equalsIgnoreCase(arenaID)) {
+        for (Player all : Bukkit.getOnlinePlayers()) {
+            if (all.getWorld().getName().equalsIgnoreCase(arenaID)) {
                 all.sendMessage(UHCMeetupSystem.getInstance().getPrefix() + " §4" + player.getName() + " §cgot terminated!");
             }
         }
@@ -164,17 +164,17 @@ public class ArenaUtils {
 
     //THANKS ThunderWaffeMC
     public boolean deleteWorld(File path) {
-        if(path.exists()) {
+        if (path.exists()) {
             File files[] = path.listFiles();
-            for(int i=0; i<files.length; i++) {
-                if(files[i].isDirectory()) {
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].isDirectory()) {
                     deleteWorld(files[i]);
                 } else {
                     files[i].delete();
                 }
             }
         }
-        return(path.delete());
+        return (path.delete());
     }
 
 }

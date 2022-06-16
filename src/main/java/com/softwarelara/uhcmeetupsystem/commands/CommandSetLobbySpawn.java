@@ -15,7 +15,7 @@ public class CommandSetLobbySpawn implements CommandExecutor {
         final Player player = (Player) sender;
         final String prefix = UHCMeetupSystem.getInstance().getPrefix();
 
-        if(player.hasPermission("UHCMeetupSystem.admin")) {
+        if (player.hasPermission("UHCMeetupSystem.admin")) {
             LocationUtils.setLobbySpawn(player.getLocation());
             player.sendMessage("§aLobbyspawn set.");
         } else {

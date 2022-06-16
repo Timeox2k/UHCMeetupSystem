@@ -2,12 +2,8 @@ package com.softwarelara.uhcmeetupsystem.listener;
 
 import com.softwarelara.uhcmeetupsystem.UHCMeetupSystem;
 import com.softwarelara.uhcmeetupsystem.utils.ConfigurationUtils;
-import com.softwarelara.uhcmeetupsystem.utils.ItemStackBuilder;
 import com.softwarelara.uhcmeetupsystem.utils.LocationUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +14,6 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -45,9 +40,9 @@ public class PlayerListener implements Listener {
         event.setQuitMessage(null);
         Player player = event.getPlayer();
 
-        UHCMeetupSystem uhcMeetupSystem = UHCMeetupSystem.getInstance();
+        final UHCMeetupSystem uhcMeetupSystem = UHCMeetupSystem.getInstance();
 
-        if(uhcMeetupSystem.getArenaUtils().isPlayerInArena(player)) {
+        if (uhcMeetupSystem.getArenaUtils().isPlayerInArena(player)) {
             uhcMeetupSystem.getArenaUtils().terminatePlayer(player);
         }
     }
@@ -86,13 +81,13 @@ public class PlayerListener implements Listener {
             event.setCancelled(true);
         }
 
-        if(event.getView().getTitle().equalsIgnoreCase(arenaChooserDisplayName)) {
+        if (event.getView().getTitle().equalsIgnoreCase(arenaChooserDisplayName)) {
             event.setCancelled(true);
 
-            if(currentItem.getType() == Material.GREEN_DYE) {
+            if (currentItem.getType() == Material.GREEN_DYE) {
                 String parsedArenaID = "Meetup-" + currentItem.getItemMeta().getDisplayName().split("UHCMeetup-")[1];
 
-                if(uhcMeetupSystem.getArenaUtils().doesArenaExist(parsedArenaID)) {
+                if (uhcMeetupSystem.getArenaUtils().doesArenaExist(parsedArenaID)) {
                     player.closeInventory();
                     uhcMeetupSystem.getArenaUtils().joinArena(player, parsedArenaID);
                 }
@@ -123,7 +118,7 @@ public class PlayerListener implements Listener {
         final String arenaChooserDisplayName = ConfigurationUtils.getStringOfConfigPath("LOBBY_ARENA_SELECTOR_DISPLAYNAME");
 
         assert itemInHandMeta != null;
-        if(itemInHandMeta.getDisplayName().equalsIgnoreCase(arenaChooserDisplayName)) {
+        if (itemInHandMeta.getDisplayName().equalsIgnoreCase(arenaChooserDisplayName)) {
             UHCMeetupSystem.getInstance().getArenaUtils().openArenaInventory(player);
             event.setCancelled(true);
         }

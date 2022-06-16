@@ -13,7 +13,7 @@ public class CommandHUB implements CommandExecutor {
 
         final Player player = (Player) sender;
         final String prefix = UHCMeetupSystem.getInstance().getPrefix();
-        if(LocationUtils.getLobbySpawn().getWorld() != player.getWorld()) {
+        if (LocationUtils.getLobbySpawn().getWorld() != player.getWorld()) {
             LocationUtils.teleportToLobby(player);
             UHCMeetupSystem.getInstance().getArenaUtils().terminatePlayer(player);
         } else {

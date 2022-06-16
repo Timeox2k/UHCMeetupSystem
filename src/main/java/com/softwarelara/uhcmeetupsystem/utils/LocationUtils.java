@@ -43,7 +43,7 @@ public class LocationUtils {
     }
 
     public static void teleportToLobby(Player player) {
-        if(!LocationUtils.isLobbySet()) {
+        if (!LocationUtils.isLobbySet()) {
             player.sendMessage("§4Warning§c: Lobbyspawn is not set! Please go to your Lobbyspawn and type §c/setLobbySpawn");
         } else {
             player.teleport(LocationUtils.getLobbySpawn());
