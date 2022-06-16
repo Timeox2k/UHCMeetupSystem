@@ -157,18 +157,16 @@ public class ArenaUtils {
     }
 
     public void terminatePlayer(Player player) {
-        if (!playersInArena.contains(player.getUniqueId())) return;
-
-        String arenaID = playersInArena.get(player.getUniqueId());
-        for (Player all : Bukkit.getOnlinePlayers()) {
-            if (all.getWorld().getName().equalsIgnoreCase(arenaID)) {
-                all.sendMessage(UHCMeetupSystem.getInstance().getPrefix() + " §4" + player.getName() + " §cgot terminated!");
+        if (playersInArena.containsKey(player.getUniqueId())) {
+            String arenaID = playersInArena.get(player.getUniqueId());
+            for (Player all : Bukkit.getOnlinePlayers()) {
+                if (all.getWorld().getName().equalsIgnoreCase(arenaID)) {
+                    all.sendMessage(UHCMeetupSystem.getInstance().getPrefix() + " §4" + player.getName() + " §cgot terminated!");
+                }
             }
+            playersInArena.remove(player.getUniqueId());
         }
-        playersInArena.remove(player.getUniqueId());
-        LocationUtils.teleportToLobby(player);
     }
-
     //THANKS ThunderWaffeMC
     public boolean deleteWorld(File path) {
         if (path.exists()) {
