@@ -3,3 +3,7 @@ version: '${project.version}'
 main: com.softwarelara.uhcmeetupsystem.UHCMeetupSystem
 api-version: 1.13
 authors: [ Timeox2k ]
+commands:
+  hub:
+    aliases: [lobby,quit,l]
+  setlobbyspawn:

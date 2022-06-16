@@ -8,4 +8,8 @@ public class ConfigurationUtils {
         return UHCMeetupSystem.getInstance().getConfig().getString(path).replace("&", "§");
     }
 
+    public static Integer getIntegerOfConfigPath(String path) {
+        return UHCMeetupSystem.getInstance().getConfig().getInt(path);
+    }
+
 }

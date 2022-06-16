@@ -1,11 +1,14 @@
 package com.softwarelara.uhcmeetupsystem;
 
+import com.softwarelara.uhcmeetupsystem.commands.CommandHUB;
+import com.softwarelara.uhcmeetupsystem.commands.CommandSetLobbySpawn;
 import com.softwarelara.uhcmeetupsystem.listener.PlayerListener;
 import com.softwarelara.uhcmeetupsystem.listener.WorldListener;
 import com.softwarelara.uhcmeetupsystem.utils.ArenaUtils;
 import com.softwarelara.uhcmeetupsystem.utils.ConfigurationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,6 +38,7 @@ public final class UHCMeetupSystem extends JavaPlugin {
         config.addDefault("PREFIX", "&e⋆&dUHC&5Systems&r&e⋆");
         config.addDefault("LOBBY_ARENA_SELECTOR_ITEM", "SNOWBALL");
         config.addDefault("LOBBY_ARENA_SELECTOR_DISPLAYNAME", "&aSelect Arena to join");
+        config.addDefault("ARENA_MAX_PLAYERS", 10);
 
         getLogger().info("Server got started, this means we will start 3 Arenas to start with. If we need more, we will create more dynamically.");
         for (int i = 0; i < 3; i++) {
@@ -42,6 +46,10 @@ public final class UHCMeetupSystem extends JavaPlugin {
         }
         getLogger().info("Arenas created!");
         saveConfig();
+
+        getCommand("hub").setExecutor(new CommandHUB());
+        getCommand("setlobbyspawn").setExecutor(new CommandSetLobbySpawn());
+
     }
 
     public static UHCMeetupSystem getInstance() {
@@ -62,6 +70,9 @@ public final class UHCMeetupSystem extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            player.kickPlayer("§c§lImportant Restart!\n\n§cWe will be back in a few Seconds!");
+        }
         getArenaUtils().deleteAllArenas();
     }
 }

@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.world.WorldInitEvent;
 
 public class WorldListener implements Listener {
 
@@ -15,6 +16,13 @@ public class WorldListener implements Listener {
 
         if(!UHCMeetupSystem.getInstance().getArenaUtils().isPlayerInArena(player)) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onWorldInit(WorldInitEvent event){
+        if(event.getWorld().getName().contains("Meetup")) {
+            event.getWorld().setKeepSpawnInMemory(false);
         }
     }
 
