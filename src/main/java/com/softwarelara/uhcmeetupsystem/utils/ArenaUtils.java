@@ -138,7 +138,7 @@ public class ArenaUtils {
         UUID uuid = player.getUniqueId();
         playersInArena.put(uuid, arenaID);
         World world = Bukkit.getWorld(arenaID);
-        player.teleport(new Location(world, 0, world.getHighestBlockYAt(0, 0), 0));
+        player.teleport(new Location(world, 0, world.getHighestBlockYAt(0, 0) + 1, 0));
         player.getInventory().clear();
         player.sendMessage(uhcMeetupSystem.getPrefix() + " §aYou joined the Arena " + arenaID);
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 10, 10);
