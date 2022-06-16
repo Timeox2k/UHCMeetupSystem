@@ -32,6 +32,13 @@ public class ArenaUtils {
             wc.generateStructures(false);
             wc.createWorld();
             Bukkit.createWorld(wc);
+            World world = Bukkit.getWorld(arenaID);
+            WorldBorder worldBorder = world.getWorldBorder();
+
+            worldBorder.setCenter(0, 0);
+            worldBorder.setSize(200);
+            worldBorder.setDamageAmount(1D);
+
             logger.info("Created Arena with ID: " + arenaID);
         }
     }
