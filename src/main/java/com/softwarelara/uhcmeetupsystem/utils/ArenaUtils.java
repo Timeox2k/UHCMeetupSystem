@@ -33,6 +33,7 @@ public class ArenaUtils {
             wc.createWorld();
             Bukkit.createWorld(wc);
             World world = Bukkit.getWorld(arenaID);
+            assert world != null;
             WorldBorder worldBorder = world.getWorldBorder();
 
             worldBorder.setCenter(0, 0);
@@ -170,7 +171,7 @@ public class ArenaUtils {
     //THANKS ThunderWaffeMC
     public boolean deleteWorld(File path) {
         if (path.exists()) {
-            File files[] = path.listFiles();
+            File[] files = path.listFiles();
             for (int i = 0; i < files.length; i++) {
                 if (files[i].isDirectory()) {
                     deleteWorld(files[i]);

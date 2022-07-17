@@ -16,6 +16,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class UHCMeetupSystem extends JavaPlugin {
 
 
@@ -66,8 +68,8 @@ public final class UHCMeetupSystem extends JavaPlugin {
         getLogger().info("Arenas created!");
         saveConfig();
 
-        getCommand("hub").setExecutor(new CommandHUB());
-        getCommand("setlobbyspawn").setExecutor(new CommandSetLobbySpawn());
+        Objects.requireNonNull(getCommand("hub")).setExecutor(new CommandHUB());
+        Objects.requireNonNull(getCommand("setlobbyspawn")).setExecutor(new CommandSetLobbySpawn());
 
     }
 

@@ -4,7 +4,7 @@ import com.softwarelara.uhcmeetupsystem.UHCMeetupSystem;
 import com.softwarelara.uhcmeetupsystem.utils.ConfigurationUtils;
 import com.softwarelara.uhcmeetupsystem.utils.LocationUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,8 +17,6 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.HashMap;
-
 public class PlayerListener implements Listener {
 
     @EventHandler
@@ -30,6 +28,7 @@ public class PlayerListener implements Listener {
         player.getActivePotionEffects().clear();
         player.setFlying(false);
         player.setAllowFlight(false);
+        player.setGameMode(GameMode.SURVIVAL);
         player.getInventory().clear();
         player.sendMessage(UHCMeetupSystem.getInstance().getPrefix() + " §aWelcome §d" + player.getName() + " §aon §dUHCSystems.net§a!");
         player.sendTitle("§aHey!", "§eNice to see you!");
@@ -86,7 +85,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onItemPickup(PlayerPickupItemEvent event) {
-            Player player = event.getPlayer();
+            final Player player = event.getPlayer();
 
             if (!UHCMeetupSystem.getInstance().getArenaUtils().isPlayerInArena(player)) {
                 event.setCancelled(true);
@@ -95,7 +94,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onItemPickup(PlayerPickupArrowEvent event) {
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
 
         if (!UHCMeetupSystem.getInstance().getArenaUtils().isPlayerInArena(player)) {
             event.setCancelled(true);
@@ -115,7 +114,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent event) {
-        Player player = (Player) event.getPlayer();
+        Player player = event.getPlayer();
 
         if (!UHCMeetupSystem.getInstance().getArenaUtils().isPlayerInArena(player)) {
             event.setCancelled(true);
