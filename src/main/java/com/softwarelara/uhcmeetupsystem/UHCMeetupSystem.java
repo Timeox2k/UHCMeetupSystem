@@ -7,7 +7,11 @@ import com.softwarelara.uhcmeetupsystem.listener.WorldListener;
 import com.softwarelara.uhcmeetupsystem.utils.ArenaUtils;
 import com.softwarelara.uhcmeetupsystem.utils.ConfigurationUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,6 +33,21 @@ public final class UHCMeetupSystem extends JavaPlugin {
         pluginManager.registerEvents(new PlayerListener(), this);
         pluginManager.registerEvents(new WorldListener(), this);
         loadConfig();
+
+        //Clear All Mobs that we dont need.
+
+
+        int entityCount = 0;
+
+        for(World world : getServer().getWorlds()) {
+            for(Entity entity : world.getEntities()) {
+                if(!(entity instanceof ArmorStand) && !(entity instanceof Player) && !(entity instanceof ItemFrame)) {
+                    entity.remove();
+                    entityCount++;
+                }
+            }
+        }
+        getLogger().info("Removed " + entityCount + " useless Mobs/Animals/Items.");
     }
 
     private void loadConfig() {
