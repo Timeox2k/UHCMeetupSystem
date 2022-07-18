@@ -2,7 +2,10 @@ package com.softwarelara.uhcmeetupsystem.utils;
 
 import com.softwarelara.uhcmeetupsystem.UHCMeetupSystem;
 import org.bukkit.*;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
+import org.bukkit.generator.BiomeProvider;
+import org.bukkit.generator.WorldInfo;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,18 +29,21 @@ public class ArenaUtils {
         if (!existingArenas.contains(arenaID)) {
             existingArenas.add(arenaID);
             WorldCreator wc = new WorldCreator(arenaID);
-
             wc.environment(World.Environment.NORMAL);
-            wc.type(WorldType.NORMAL);
+
+            //TODO: Change this back to "NORMAL" before release. This is just to improve the reload/restart speed.
+            wc.type(WorldType.FLAT);
             wc.generateStructures(false);
             wc.createWorld();
+
             Bukkit.createWorld(wc);
             World world = Bukkit.getWorld(arenaID);
             assert world != null;
+            world.setBiome(world.getSpawnLocation(), Biome.PLAINS);
             WorldBorder worldBorder = world.getWorldBorder();
 
             worldBorder.setCenter(0, 0);
-            worldBorder.setSize(200);
+            worldBorder.setSize(50);
             worldBorder.setDamageAmount(1D);
 
             logger.info("Created Arena with ID: " + arenaID);
